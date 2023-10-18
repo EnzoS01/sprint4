@@ -1,2 +1,6 @@
-package com.example.Sprint4.services;public interface DetalleArtManufacturadoService {
+package com.example.Sprint4.services;
+
+import com.example.Sprint4.entities.DetalleArticuloManufacturado;
+
+public interface DetalleArtManufacturadoService extends BaseService<DetalleArticuloManufacturado, Long>{
 }
