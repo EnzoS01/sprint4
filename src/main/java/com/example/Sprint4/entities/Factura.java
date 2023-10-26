@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Factura extends Base {
     @NotNull
     @Column(name = "fecha_facturacion")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaFacturacion;
+    private LocalDateTime fechaFacturacion;
 
     @Column(name = "mp_payment_id")
     private Long mpPaymentId;
@@ -45,19 +46,16 @@ public class Factura extends Base {
 
     @NotNull
     @Column(name = "fecha_alta")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+    private LocalDateTime fechaAlta;
 
     @Column(name = "fecha_modificacion")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
     @Column(name = "fecha_baja")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
 
     @NotNull
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "id_pedido")
     private Pedido pedido;
 

@@ -2,8 +2,8 @@ package com.example.Sprint4.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,25 +15,22 @@ import java.util.Date;
 @Builder
 public class Usuario extends Base {
 
-    @NotNull
-    @Column(name = "auth0_id", nullable = false, unique = true)
-    private String auth0Id;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @NotNull
     @Column(name = "username", nullable = false)
     private String username;
 
-    @NotNull
+    @Column(name = "rol", nullable = false)
+    private String rol;
+
     @Column(name = "fecha_alta")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+    private LocalDateTime fechaAlta;
 
     @Column(name = "fecha_modificacion")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
     @Column(name = "fecha_baja")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,19 +18,16 @@ import java.util.List;
 @Builder
 public class Domicilio extends Base {
 
-    @NotNull
-    @Column(length = 500)
+    @Column(name = "calle")
     private String calle;
 
-    @NotNull
-    @Column(precision = 5)
+    @Column(name = "numero")
     private Integer numero;
 
-    @NotNull
-    @Column(precision = 4)
+    @Column(name = "codigoPostal")
     private Integer codigoPostal;
 
-    @NotNull
+    @Column(name = "localidad")
     private String localidad;
 
     @Column(name = "numero_vivienda")
@@ -38,17 +36,17 @@ public class Domicilio extends Base {
     @Column(name = "piso_vivienda")
     private Integer pisoDpto;
 
-    @NotNull
     @Column(name = "fecha_alta")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+    private LocalDateTime fechaAlta;
 
     @Column(name = "fecha_modificacion")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
     @Column(name = "fecha_baja")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
+
+    @ManyToOne(optional = false, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_cliente")
+    private Cliente cliente;
 
 }

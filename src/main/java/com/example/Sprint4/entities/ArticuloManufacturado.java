@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,10 +21,11 @@ import java.util.List;
 public class ArticuloManufacturado extends Base {
 
     @NotNull
+    @Column(name = "denominacionManufacturado")
     private String denominacion;
 
     @NotNull
-    @Column(length = 1000)
+    @Column(name = "descripArtManuf", length = 1000)
     private String descripcion;
 
     @NotNull
@@ -31,25 +34,22 @@ public class ArticuloManufacturado extends Base {
 
     @NotNull
     @Column(name = "precio_venta", precision = 10, scale = 2)
-    private int precioVenta;
+    private BigDecimal precioVenta;
 
     @Column(name = "costo", precision = 10, scale = 2)
-    private int costo;
+    private BigDecimal costo;
 
     @Column(length = 500, name = "url_imagen")
     private String urlImagen;
 
     @NotNull
     @Column(name = "fecha_alta")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+    private LocalDateTime fechaAlta;
 
     @Column(name = "fecha_modificacion")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
     @Column(name = "fecha_baja")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -57,6 +57,11 @@ public class ArticuloManufacturado extends Base {
     @Builder.Default
     @JoinColumn(name = "id_DetalleArtManufac")
     private List<DetalleArticuloManufacturado> detalleArticulosManufacturados = new ArrayList<>();
+
+    @NotNull
+    @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_rubro_articulo")
+    private RubroArticulo rubroArticulo;
 
     public void AgregarDetalleArtManufac(DetalleArticuloManufacturado dam){
         detalleArticulosManufacturados.add(dam);

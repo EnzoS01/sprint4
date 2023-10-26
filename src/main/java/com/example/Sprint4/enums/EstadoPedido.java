@@ -13,6 +13,7 @@ public enum EstadoPedido {
     CANCELADO ,
 
     NOTA_CREDITO ,
+    A_CONFIRMAR,
 
     COMPLETADO ;
 

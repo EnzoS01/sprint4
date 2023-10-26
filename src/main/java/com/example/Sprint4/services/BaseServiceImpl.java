@@ -1,6 +1,7 @@
 package com.example.Sprint4.services;
 
 import com.example.Sprint4.entities.Base;
+import com.example.Sprint4.entities.Cliente;
 import com.example.Sprint4.repositories.BaseRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
     @Autowired
     protected BaseRepository<E,ID> baseRepository;
 
+    public BaseServiceImpl(BaseRepository<E, ID> baseRepository) {
+        this.baseRepository = baseRepository;
+    }
+
     @Override
     @Transactional
     public List<E> findAll() throws Exception {
@@ -25,17 +30,6 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
         } catch (Exception e){
             throw new Exception(e.getMessage());
 
-        }
-    }
-
-    @Override
-    @Transactional
-    public Page<E> findAll(org.springframework.data.domain.Pageable pageable) throws Exception {
-        try{
-            Page<E> entities=baseRepository.findAll(pageable);
-            return entities;
-        } catch (Exception e){
-            throw new Exception(e.getMessage());
         }
     }
 
