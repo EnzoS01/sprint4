@@ -15,6 +15,8 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
     )
     List<ArticuloManufacturado> busquedaPorDenominacion(@Param("filtro") String filtro);
 
+    List<ArticuloManufacturado> findByDenominacionContaining(String denominacion);
+
     @Query(
             value = "SELECT * FROM articulo_manufacturado ORDER BY articulo_manufacturado.precio_venta DESC",
             nativeQuery = true
@@ -48,4 +50,8 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
             nativeQuery = true
     )
     List<RankingProductosDTO> filtradoPorProductoVendidoPorFecha(@Param("filtro1") Date filtro1, @Param("filtro2") Date filtro2);
-}
+
+   // List<ArticuloManufacturado>
+
+
+}   

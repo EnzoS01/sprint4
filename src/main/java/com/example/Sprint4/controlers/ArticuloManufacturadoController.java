@@ -17,7 +17,7 @@ public class ArticuloManufacturadoController extends BaseControllerImpl<Articulo
     @GetMapping({"/busquedaPorDenominacion"})
     public ResponseEntity<?> busquedaPorDenominacion(@RequestParam String filtro) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(((ArticuloManufacturadoServiceImpl)this.servicio).busquedaPorDenominacion(filtro));
+            return ResponseEntity.status(HttpStatus.OK).body(((ArticuloManufacturadoServiceImpl)this.servicio).findByDenominacionContaining(filtro));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"" + e.getMessage() + "\"}");
         }
@@ -58,4 +58,7 @@ public class ArticuloManufacturadoController extends BaseControllerImpl<Articulo
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\":\"" +e.getMessage() +"\"}"));
         }
     }
+
+
+
 }

@@ -23,4 +23,6 @@ public interface PedidoService extends BaseService<Pedido, Long>{
     MostrarPedidosDTO mostrarEstadoPedido(Long id) throws Exception;
 
     public void actulizarEstadoaconfirmar(Long idPedido) throws Exception;
+    List<Pedido> VerPedidosPorUsuario(Long idCliente) throws Exception;
+
 }

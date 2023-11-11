@@ -43,5 +43,15 @@ public class PedidoController extends BaseControllerImpl<Pedido, PedidoServiceIm
         }
     }
 
+    @GetMapping("/VerPedidosPorUsuario")
+    public ResponseEntity<?> VerPedidosPorUsuario (@PathVariable Long idCliente){
+        try{
+            servicio.VerPedidosPorUsuario(idCliente);
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.VerPedidosPorUsuario(idCliente));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+        }
+    }
+
 
 }

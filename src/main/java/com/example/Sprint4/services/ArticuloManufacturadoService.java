@@ -16,4 +16,6 @@ public interface ArticuloManufacturadoService extends BaseService<ArticuloManufa
     List<RankingProductosDTO> filtradoPorProductoVendido() throws Exception;
 
     List<RankingProductosDTO> filtradoPorProductoVendidoPorFecha(Date filtro1, Date filtro2) throws Exception;
+
+    List<ArticuloManufacturado> findByDenominacionContaining(String filtro) throws Exception;
 }

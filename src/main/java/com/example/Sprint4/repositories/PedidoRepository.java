@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 import java.util.List;
 
-public interface PedidoRepository extends BaseRepository<Pedido, Long>{
+public interface PedidoRepository extends BaseRepository<Pedido, Long> {
     @Query(
-            value = "SELECT "+
-            "SUM(total) AS total_ingresos, "+
-            "SUM(totalCosto) AS total_costos, "+
-            "SUM(total - totalCosto) AS diferencia "+
-            "FROM pedido",
+            value = "SELECT " +
+                    "SUM(total) AS total_ingresos, " +
+                    "SUM(totalCosto) AS total_costos, " +
+                    "SUM(total - totalCosto) AS diferencia " +
+                    "FROM pedido",
             nativeQuery = true
     )
     MovimientosMonetariosDTO MovimientoMonetario();
@@ -75,26 +75,26 @@ public interface PedidoRepository extends BaseRepository<Pedido, Long>{
     //Mostrar pedido al cliente con el tiempo de espera
 
     @Query(
-            value="SELECT "+
-                    "MAX(am.tiempo_estimado_cocina) AS tiempo_maximo_articulo, "+
-                    "IFNULL(MAX(tiempo_maximo_articulo), 0) AS tiempo_maximo_pedido_en_cocina, "+
-                    "CASE "+
-                    "WHEN pedido.TIPO_ENVIO = DELIVERY THEN 10 "+
-                    "ELSE 0 "+
-                    "END AS tiempo_entrega_delivery "+
-                    "FROM "+
-                    "detalle_pedido AS dp "+
-                    "JOIN articulo_manufacturado AS am ON dp.id_articulo_manufacturado = am.id "+
-                    "LEFT JOIN ( "+
-                    "SELECT  MAX(tiempo_estimado_cocina) AS tiempo_estimado_pedido_en_cocina "+
-                    "FROM detalle_pedido "+
-                    "WHERE PEDIDO.ESTADO = PREPARACION "+
-                    "GROUP BY pedido.id "+
-                    ") AS pedidos_en_cocina ON dp.id_pedido = pedidos_en_cocina.id "+
+            value = "SELECT " +
+                    "MAX(am.tiempo_estimado_cocina) AS tiempo_maximo_articulo, " +
+                    "IFNULL(MAX(tiempo_maximo_articulo), 0) AS tiempo_maximo_pedido_en_cocina, " +
+                    "CASE " +
+                    "WHEN pedido.TIPO_ENVIO = DELIVERY THEN 10 " +
+                    "ELSE 0 " +
+                    "END AS tiempo_entrega_delivery " +
+                    "FROM " +
+                    "detalle_pedido AS dp " +
+                    "JOIN articulo_manufacturado AS am ON dp.id_articulo_manufacturado = am.id " +
+                    "LEFT JOIN ( " +
+                    "SELECT  MAX(tiempo_estimado_cocina) AS tiempo_estimado_pedido_en_cocina " +
+                    "FROM detalle_pedido " +
+                    "WHERE PEDIDO.ESTADO = PREPARACION " +
+                    "GROUP BY pedido.id " +
+                    ") AS pedidos_en_cocina ON dp.id_pedido = pedidos_en_cocina.id " +
                     "WHERE dp.id_pedido = :id",
             nativeQuery = true
     )
-    MostrarPedidosDTO mostrarEstadoPedido(@Param("id")Long id);
+    MostrarPedidosDTO mostrarEstadoPedido(@Param("id") Long id);
 
     @Modifying
     @org.springframework.transaction.annotation.Transactional
@@ -103,6 +103,12 @@ public interface PedidoRepository extends BaseRepository<Pedido, Long>{
             nativeQuery = true
     )
     void actulizarEstadoaconfirmar(@Param("idPedido") Long idPedido);
+
+    @Query(
+            value = "SELECT * FROM pedido WHERE pedido.id_cliente = :idCliente ",
+            nativeQuery = true
+    )
+    List<Pedido> VerPedidosPorUsuario(@Param("idCliente") Long idCliente);
 
 
 

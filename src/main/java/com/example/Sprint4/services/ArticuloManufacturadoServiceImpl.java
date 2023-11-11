@@ -66,4 +66,14 @@ public class ArticuloManufacturadoServiceImpl extends BaseServiceImpl<ArticuloMa
             throw new Exception(e.getMessage());
         }
     }
+
+    public List<ArticuloManufacturado> findByDenominacionContaining(String filtro) throws Exception {
+        try {
+            List<ArticuloManufacturado> articuloManufacturados = this.articuloManufacturadoRepository.findByDenominacionContaining(filtro);
+            return articuloManufacturados;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }

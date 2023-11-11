@@ -113,4 +113,15 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido,Long> implements P
         }
 
     }
+    @Override
+    public List<Pedido> VerPedidosPorUsuario(Long idCliente) throws Exception {
+        try {
+            List<Pedido> pedidos = pedidoRepository.VerPedidosPorUsuario(idCliente);
+            return pedidos;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
 }

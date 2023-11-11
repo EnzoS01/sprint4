@@ -60,4 +60,6 @@ public interface    ClienteRepository extends BaseRepository<Cliente, Long>{
             nativeQuery = true
     )
     public List<Cliente> BuscarPorNyA(@Param("filtro")String filtro);
+
+
 }
